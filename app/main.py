@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from app.models.database import Base, engine
-from app.routers import router  # Importa el enrutador unificado
+from app.routers import categorias_router, componentes_router, compatibilidad_router
 
 # Crear tablas si no existen
 Base.metadata.create_all(bind=engine)
 
-# Instancia de la aplicación
+# Inicializar la aplicación FastAPI
 app = FastAPI(title="Microservicio de Inventario")
 
-# Incluir los enrutadores
-app.include_router(router)
+# Registrar enrutadores con sus tags
+app.include_router(categorias_router)
+app.include_router(componentes_router)
+app.include_router(compatibilidad_router)
